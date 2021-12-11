@@ -1,0 +1,25 @@
+
+# Development environment
+
+IMAGE=ksatola/dev_env
+SRC_FOLDER='/home/ksatola/git/k8s_workbench/src'
+TARGET_FOLDER='/root/src'
+
+# ks8_workbench
+docker images
+docker build -t ksatola/dev_env .
+#docker run -d -t -P --name k8s_dev_env $IMAGE
+
+# Map a host directory to a docker container directory and use host networking
+docker run -d -t -P --network host --name k8s_dev_env --mount src=$SRC_FOLDER,target=$TARGET_FOLDER,type=bind $IMAGE
+
+# In VSC choose Docker, then right-click container, then Attach Visual Studio Code
+
+# In the container
+# Check Linux distro
+cat /etc/os-release
+
+python -V
+
+pip install -r src/recommendations/requirements.txt
+
